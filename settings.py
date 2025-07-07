@@ -3,4 +3,6 @@ FPS = 60
 TILE_GRID_WIDTH = 384
 TILE_GRID_HEIGHT = 216
 
+DEFAULT_COLORS = ("black","white")
+
 DEBUG = True
