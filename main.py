@@ -10,7 +10,7 @@ def draw_on_screen(screen,tile_grid, comp_grid):
             cell_color = DEFAULT_COLORS[tile_grid[row][column]]
             cell_surface = pg.Surface(cell_size)
             cell_surface.fill(cell_color)
-            cell_rect = cell_surface.get_frect(topleft = (cell_size[0] * column + SIZE_OFFSET, cell_size[1] * row + SIZE_OFFSET))
+            cell_rect = cell_surface.get_frect(topleft = ((cell_size[0] + SIZE_OFFSET) * column , (cell_size[1] + SIZE_OFFSET) * row))
             screen.blit(cell_surface,cell_rect)
 
 def clear_grid(tile_grid):
@@ -55,7 +55,7 @@ pg.display.set_caption("Conway's Game of Life: paused")
 clock = pg.time.Clock()
 
 prev_tile_grid = [[0 for _ in range(TILE_GRID_WIDTH)] for _ in range(TILE_GRID_HEIGHT)]
-for i in range(1000):
+for i in range(10000):
     coords = (random.randint(0,TILE_GRID_HEIGHT - 1),random.randint(0,TILE_GRID_WIDTH - 1))
     prev_tile_grid[coords[0]][coords[1]] = 1
 
@@ -73,12 +73,13 @@ while (True):
                 paused = not paused
                 if paused: pg.display.set_caption("Conway's Game of Life: paused")
                 else: pg.display.set_caption("Conway's Game of Life: running")
-        if event.type == pg.KEYDOWN:
             if event.key == pg.K_LCTRL:
                 DEBUG = not DEBUG
-        if event.type == pg.KEYDOWN:
             if event.key == pg.K_BACKSPACE:
                 clear_grid(prev_tile_grid)
+        if event.type == pg.MOUSEBUTTONDOWN:
+            pass
+        
     
     if not paused:
         screen.fill("black")
