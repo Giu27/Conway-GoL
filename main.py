@@ -53,7 +53,7 @@ pg.display.set_caption("Conway's Game of Life: paused")
 clock = pg.time.Clock()
 
 prev_tile_grid = [[0 for _ in range(TILE_GRID_WIDTH)] for _ in range(TILE_GRID_HEIGHT)]
-for i in range(1000):
+for i in range(RANDOM_GENERATED_CELLS):
     coords = (random.randint(0,TILE_GRID_HEIGHT - 1),random.randint(0,TILE_GRID_WIDTH - 1))
     prev_tile_grid[coords[0]][coords[1]] = 1
 
