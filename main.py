@@ -17,6 +17,13 @@ def clear_grid(tile_grid):
             tile_grid[i][j] = 0
     draw_on_screen(screen,tile_grid)
 
+def random_grid(tile_grid):
+    clear_grid(tile_grid)
+    for i in range(RANDOM_GENERATED_CELLS):
+        coords = (random.randint(0,TILE_GRID_HEIGHT - 1),random.randint(0,TILE_GRID_WIDTH - 1))
+        tile_grid[coords[0]][coords[1]] = 1
+    draw_on_screen(screen,tile_grid)
+
 def update_cell(tile_grid,x,y):
     cell_state = tile_grid[y][x]
     neighbours = 0
@@ -53,9 +60,6 @@ pg.display.set_caption("Conway's Game of Life: paused")
 clock = pg.time.Clock()
 
 prev_tile_grid = [[0 for _ in range(TILE_GRID_WIDTH)] for _ in range(TILE_GRID_HEIGHT)]
-for i in range(RANDOM_GENERATED_CELLS):
-    coords = (random.randint(0,TILE_GRID_HEIGHT - 1),random.randint(0,TILE_GRID_WIDTH - 1))
-    prev_tile_grid[coords[0]][coords[1]] = 1
 
 screen.fill(DEFAULT_COLORS[0])
 draw_on_screen(screen,prev_tile_grid)
@@ -76,6 +80,8 @@ while (True):
                 screen.fill(DEFAULT_COLORS[0])
             if event.key == pg.K_BACKSPACE:
                 clear_grid(prev_tile_grid)
+            if event.key == pg.K_r:
+                random_grid(prev_tile_grid)
         if event.type == pg.MOUSEBUTTONDOWN:
             tile_coords = (int(event.pos[0] / (WIDTH / TILE_GRID_WIDTH)),int(event.pos[1] / (HEIGHT / TILE_GRID_HEIGHT)))
             prev_tile_grid[tile_coords[1]][tile_coords[0]] = not prev_tile_grid[tile_coords[1]][tile_coords[0]]
